@@ -111,35 +111,18 @@ summary(mul_lm7)
 mul_lm8<-lm(mpg~.+wt*hp+I(hp^2),data=cars) # this time chosse every variable, and hp of power of 2.
 mul_lm8$coefficients
 RSS10<-sum((cars$mpg-mul_lm7$fitted.values)^2) # finding RSS
-RSS10
+
 summary(mul_lm8)
 
 anova(carslm1,carslm2,mul_lm4,mul_lm7,mul_lm8)
-# R2 adj and RSE choose min
+# NOTE : # R2 adj and RSE choose min
 
 # Prediction
 new_car_data<-data.frame(wt=c(2.5,3.5,4.5,5.5),
-                          hp=c(100,200,250,350))
-new_car_data
-
-pred1<-predict(carslm1,data=new_car_data)
-pred2<-predict(carslm2,data=new_car_data)
-pred3<-predict(mul_lm4,data=new_car_data)
-cbind(pred1,pred2,pred3)
-head(cars)
-# load Hitters
-new_car_data<-(data.frame(wt=c(2.5,3.5,4.5,5.5),
-                          hp=c(100,200,250,350)))
-
-actual<-predict(carslm1,data=cars)
-actual
-
-RSS_pred1<-sum((cars$mpg-pred1)^2) # finding RSS
-RSS_pred1
+                          hp=c(100,200,250,350))  # lets predict on our data set.
 
 
-RSS_pred2<-sum((cars$mpg-pred2)^2) # finding RSS
-RSS_pred2
-
-RSS_pred3<-sum((cars$mpg-pred3)^2) # finding RSS
-RSS_pred3
+pred1<-predict(carslm1,data=new_car_data) # wt and mpg model
+pred2<-predict(carslm2,data=new_car_data) # wt mpg and hp
+pred3<-predict(mul_lm4,data=new_car_data) # wt mpg and wt*hp
+cbind(pred1,pred2,pred3) # let analysis them to see which is better predict.
